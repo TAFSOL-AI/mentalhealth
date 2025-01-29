@@ -4,12 +4,12 @@ import faiss
 import ollama
 import json
 import numpy as np
-client = OllamaClient()
-index = faiss.read_index("Mental_Health_Advisor\\faiss_MH.bin")
-with open("Mental_Health_Advisor\\metadata.json", "r") as f:
-    metadata = json.load(f)
 
-def search_faiss(query: str, top_k: int = 5):
+
+def search_faiss(user_number, query: str, top_k: int = 5,):
+    index = faiss.read_index(f"Mental_Health_Advisor\\{user_number}_Faiss.bin")
+    with open(f"Mental_Health_Advisor\\{user_number}_metadata.json", "r") as f:
+        metadata = json.load(f)
     response = ollama.embeddings(model="nomic-embed-text", prompt=query)
     query_embedding = response["embedding"]
     query_vector = np.array(query_embedding).reshape(1, -1)
@@ -18,6 +18,8 @@ def search_faiss(query: str, top_k: int = 5):
     return results
 
 def startChat(summary):
+    client = OllamaClient()
+    
     system_prompt = f"""You are a helpful AI Mental Health Wellness Advisor. Your goal is to provide user with full Mental Health
                     Advise in a conversational way. Here is the User summary: {summary}
                     -The summary provided is of a previous session
@@ -32,14 +34,19 @@ def startChat(summary):
     messages.append({"role":"system", "content": system_prompt})
 
     while True:
+        print("\n\n*****************************************************************")
+        print("\nHello! I am your AI mental health advisor.\n")
         user_prompt = input("\nYOU: ")
         messages.append({"role":"user", "content": user_prompt})
         response = client.generate_response(messages=messages, model_name="deepseek-r1")
+
         # Use this response when hosting locally
         # response = ollama.chat(model="deepseek-r1", messages=messages)
         bot_response = response["message"]["content"]
         clean_response = re.sub(r'<think>.*?</think>', '', bot_response, flags=re.DOTALL)
         print(f"\nBOT: {clean_response}")
+
+
 
 user_name = input("\nGive me your name: ")
 user_num = input("\nGive me your phone number: ")
