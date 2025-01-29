@@ -73,8 +73,6 @@ def getSummary(qna, user_name, user_num, session_num):
                     Make sure you include session number in the summary as well. here session number is {session_num}
                     """
     message_context = []
-    user_name = input("Give me your name\n")
-    user_num = input("Give me your phone number\n")
     message_context.append({"role":"system", "content": summary_prompt})
     message_context.append({"role":"user", "content": f"User Name: {user_name}, User Number: {user_num}. Generate user summary based on these questions {qna}"})
     response = client.generate_response(messages=message_context, model_name="llama3.2")
@@ -82,7 +80,7 @@ def getSummary(qna, user_name, user_num, session_num):
     print("----------------------\nCREATED!")
 
     return answer_text
-def getData():
+def getData(user_name, user_num):
     summary_prompt = f"""You are a mental health advisor and your goal is to create summary by analyzing a question answer session
                     held with the user. The content of the question answers will be provided by the user. The user name and
                     phone number will be provided so make sure you include user name and phone number in summary for retrieval purpose.
@@ -90,8 +88,8 @@ def getData():
                     """
     qna = start_questions()
     message_context = []
-    user_name = input("Give me your name\n")
-    user_num = input("Give me your phone number\n")
+    # user_name = input("Give me your name\n")
+    # user_num = input("Give me your phone number\n")
     message_context.append({"role":"system", "content": summary_prompt})
     message_context.append({"role":"user", "content": f"User Name: {user_name}, User Number: {user_num}. Generate user summary based on these questions {qna}"})
     response = client.generate_response(messages=message_context, model_name="llama3.2")

@@ -24,5 +24,5 @@ if os.path.exists(f"Mental_Health_Advisor\\{db}"):
     user_summary = search_faiss(user_number, query=query, top_k=1)
     startChat(user_summary)
 else:
-    userData = getData()
+    userData = getData(name, user_number)
     add_to_faiss(data=userData, user_number=user_number)

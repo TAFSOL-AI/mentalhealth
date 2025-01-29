@@ -48,8 +48,8 @@ def startChat(summary):
 
 
 
-user_name = input("\nGive me your name: ")
-user_num = input("\nGive me your phone number: ")
-query = f"Give me summary for User Name: {user_name}, User Number: {user_num}"
-user_summary = search_faiss(query=query, top_k=1)
-startChat(user_summary)
+# user_name = input("\nGive me your name: ")
+# user_num = input("\nGive me your phone number: ")
+# query = f"Give me summary for User Name: {user_name}, User Number: {user_num}"
+# user_summary = search_faiss(query=query, top_k=1)
+# startChat(user_summary)
