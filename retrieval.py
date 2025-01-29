@@ -7,8 +7,8 @@ import numpy as np
 
 
 def search_faiss(user_number, query: str, top_k: int = 5,):
-    index = faiss.read_index(f"Mental_Health_Advisor\\{user_number}_Faiss.bin")
-    with open(f"Mental_Health_Advisor\\{user_number}_metadata.json", "r") as f:
+    index = faiss.read_index(f"{user_number}_Faiss.bin")
+    with open(f"{user_number}_metadata.json", "r") as f:
         metadata = json.load(f)
     response = ollama.embeddings(model="nomic-embed-text", prompt=query)
     query_embedding = response["embedding"]

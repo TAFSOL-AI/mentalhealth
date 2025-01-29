@@ -15,6 +15,6 @@ def add_to_faiss(data, user_number):
     index.add(embedding_vector)
     metadata.append(data)
 
-    faiss.write_index(index, f"Mental_Health_Advisor\\{user_number}_Faiss.bin")
-    with open(f"Mental_Health_Advisor\\{user_number}_metadata.json", "w") as f:
+    faiss.write_index(index, f"{user_number}_Faiss.bin")
+    with open(f"{user_number}_metadata.json", "w") as f:
         json.dump(metadata, f)
