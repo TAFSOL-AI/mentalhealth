@@ -38,10 +38,13 @@ def startChat(summary):
         print("\nHello! I am your AI mental health advisor.\n")
         user_prompt = input("\nYOU: ")
         messages.append({"role":"user", "content": user_prompt})
-        response = client.generate_response(messages=messages, model_name="deepseek-r1")
+
+        # Use this response when hosting on server
+        # response = client.generate_response(messages=messages, model_name="deepseek-r1")
 
         # Use this response when hosting locally
-        # response = ollama.chat(model="deepseek-r1", messages=messages)
+        response = ollama.chat(model="deepseek-r1", messages=messages)
+        
         bot_response = response["message"]["content"]
         clean_response = re.sub(r'<think>.*?</think>', '', bot_response, flags=re.DOTALL)
         print(f"\nBOT: {clean_response}")

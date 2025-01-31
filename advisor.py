@@ -1,3 +1,4 @@
+import ollama
 from ollamaserver import OllamaClient
 client = OllamaClient()
 
@@ -75,7 +76,13 @@ def getSummary(qna, user_name, user_num, session_num):
     message_context = []
     message_context.append({"role":"system", "content": summary_prompt})
     message_context.append({"role":"user", "content": f"User Name: {user_name}, User Number: {user_num}. Generate user summary based on these questions {qna}"})
-    response = client.generate_response(messages=message_context, model_name="llama3.2")
+    
+    # Use this response when hosting on server
+    # response = client.generate_response(messages=message_context, model_name="llama3.2")
+
+    # Use this response when hosting locally
+    response = ollama.chat(model="llama3.2", messages=message_context)
+
     answer_text = response["message"]["content"]
     print("----------------------\nCREATED!")
 
@@ -92,7 +99,13 @@ def getData(user_name, user_num):
     # user_num = input("Give me your phone number\n")
     message_context.append({"role":"system", "content": summary_prompt})
     message_context.append({"role":"user", "content": f"User Name: {user_name}, User Number: {user_num}. Generate user summary based on these questions {qna}"})
-    response = client.generate_response(messages=message_context, model_name="llama3.2")
+    
+    # Use this response when hosting on server
+    # response = client.generate_response(messages=message_context, model_name="llama3.2")
+
+    # Use this response when hosting locally
+    response = ollama.chat(model="llama3.2", messages=message_context)
+    
     answer_text = response["message"]["content"]
     print("----------------------\nCREATED!")
     return answer_text
