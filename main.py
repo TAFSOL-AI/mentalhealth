@@ -1,4 +1,5 @@
-from retrieval import search_faiss, startChat
+# from retrieval import search_faiss, startChat
+from openai_retrieval import search_faiss, startChat
 from advisor import getData, getSummary, start_questions
 from embed import add_to_faiss
 import os
